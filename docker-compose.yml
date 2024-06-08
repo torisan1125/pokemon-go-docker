@@ -1,0 +1,21 @@
+services:
+  next-pg-party:
+    image: pg-party-node
+    container_name: next-pg-party
+    tty: true # コンテナ内で処理を継続するために必要
+    build:
+      context: ../next-pg-party
+      dockerfile: Dockerfile
+    # ホストマシンのディレクトリをコンテナ内のディレクトリにマウントする
+    volumes:
+      - type: bind
+        source: ../next-pg-party
+        target: /app
+    ports:
+      - "3000:3000"
+    networks:
+      - pg-party-network
+
+networks:
+  pg-party-network:
+    driver: bridge
